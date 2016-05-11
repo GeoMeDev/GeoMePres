@@ -1,6 +1,7 @@
 package com.geome.geomepres;
 
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,19 +15,32 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        Thread timerThread = new Thread(){
-            public void run(){
-                try{
-                    sleep(3000);
-                }catch(InterruptedException e){
-                    e.printStackTrace();
-                }finally{
-                    Intent intent = new Intent(Splash.this,Exercise.class);
-                    startActivity(intent);
-                }
+//        Thread timerThread = new Thread(){
+//            public void run(){
+//                try{
+//                    sleep(3000);
+//                }catch(InterruptedException e){
+//                    e.printStackTrace();
+//                }finally{
+//                    Intent intent = new Intent(Splash.this,Exercise.class);
+//                    startActivity(intent);
+//                    //finish();
+//                }
+//            }
+//        };
+//        timerThread.start();
+        new CountDownTimer(3000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
             }
-        };
-        timerThread.start();
+
+            public void onFinish() {
+                Intent launchExerciseActivity = new Intent(getApplicationContext(), Exercise.class);
+                startActivity(launchExerciseActivity);
+                finish();
+            }
+        }.start();
     }
 
 

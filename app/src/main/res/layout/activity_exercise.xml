@@ -87,12 +87,15 @@
         android:layout_toStartOf="@+id/guess2"
         android:visibility="invisible" />
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Next"
-        android:id="@+id/nextButton"
-        android:layout_alignBottom="@+id/questionCounter"
-        android:layout_alignParentEnd="true" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Scores"
+        android:id="@+id/score"
+        android:textSize="24dp"
+        android:textIsSelectable="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/imageView" />
 
 </RelativeLayout>

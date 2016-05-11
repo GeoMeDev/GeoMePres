@@ -17,17 +17,18 @@ import java.util.concurrent.TimeUnit;
 public class Exercise extends AppCompatActivity {
 
     TextView timer;
-    Button guess1;
-    Button guess2;
-    Button guess3;
-    Button guess4;
+    TextView gameScore;
+    static Button guess1;
+    static Button guess2;
+    static Button guess3;
+    static Button guess4;
     Button next;
-
-
-
     int correctAnswer;
-//    timerClass counter = new timerClass(20000, 1000);
-    timerClass counter;
+    timerClass counter = null;
+    delayTimerClass delayTimer;
+
+    int score;
+    int elapsedTime;
 
     int[] pics;
     String[] questions;
@@ -40,6 +41,10 @@ public class Exercise extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
+
+        score = 0;
+        gameScore = (TextView) findViewById(R.id.score);
+        gameScore.setText(Integer.toString(score));
 
         index = 0;
         pics = new int[5];
@@ -89,31 +94,28 @@ public class Exercise extends AppCompatActivity {
 
 
 
-//        timer = (TextView) findViewById(R.id.timer);
-//        timer.setText("15 SEC"); // just for presentation we will give 15 secs to explain
-//        counter.start();
-
         guess1 = (Button) findViewById(R.id.guess1);
         guess2 = (Button) findViewById(R.id.guess2);
         guess3 = (Button) findViewById(R.id.guess3);
         guess4 = (Button) findViewById(R.id.guess4);
-        next = (Button) findViewById(R.id.nextButton);
 
         init();
 
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                init();
-            }
-        });
+//        next.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                init();
+//            }
+//        });
 
         guess1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (correctAnswer == 1) {
                     guess1.setBackgroundColor(Color.GREEN);
+                    score += elapsedTime;
+                    gameScore.setText(Integer.toString(score));
                 }
                 else {
                     guess1.setBackgroundColor(Color.RED);
@@ -124,6 +126,9 @@ public class Exercise extends AppCompatActivity {
                 guess3.setEnabled(false);
                 guess4.setEnabled(false);
                 counter.cancel();
+                counter = null;
+                delayTimer = new delayTimerClass(2000, 1000);
+                delayTimer.start();
             }
         });
 
@@ -132,6 +137,8 @@ public class Exercise extends AppCompatActivity {
             public void onClick(View v) {
                 if (correctAnswer == 2) {
                     guess2.setBackgroundColor(Color.GREEN);
+                    score += elapsedTime;
+                    gameScore.setText(Integer.toString(score));
                 }
                 else {
                     guess2.setBackgroundColor(Color.RED);
@@ -142,7 +149,9 @@ public class Exercise extends AppCompatActivity {
                 guess3.setEnabled(false);
                 guess4.setEnabled(false);
                 counter.cancel();
-
+                counter = null;
+                delayTimer = new delayTimerClass(2000, 1000);
+                delayTimer.start();
             }
         });
 
@@ -151,6 +160,8 @@ public class Exercise extends AppCompatActivity {
             public void onClick(View v) {
                 if (correctAnswer == 3) {
                     guess3.setBackgroundColor(Color.GREEN);
+                    score += elapsedTime;
+                    gameScore.setText(Integer.toString(score));
                 }
                 else {
                     guess3.setBackgroundColor(Color.RED);
@@ -161,15 +172,19 @@ public class Exercise extends AppCompatActivity {
                 guess3.setEnabled(false);
                 guess4.setEnabled(false);
                 counter.cancel();
-
+                counter = null;
+                delayTimer = new delayTimerClass(2000, 1000);
+                delayTimer.start();
             }
         });
 
         guess4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (correctAnswer == 1) {
+                if (correctAnswer == 4) {
                     guess4.setBackgroundColor(Color.GREEN);
+                    score += elapsedTime;
+                    gameScore.setText(Integer.toString(score));
                 }
                 else {
                     guess4.setBackgroundColor(Color.RED);
@@ -180,7 +195,9 @@ public class Exercise extends AppCompatActivity {
                 guess3.setEnabled(false);
                 guess4.setEnabled(false);
                 counter.cancel();
-
+                counter = null;
+                delayTimer = new delayTimerClass(2000, 1000);
+                delayTimer.start();
             }
         });
     }
@@ -219,6 +236,7 @@ public class Exercise extends AppCompatActivity {
 
     private void init() {
         if (index < pics.length) {
+            elapsedTime = 0;
             guess1.setBackgroundColor(Color.GRAY);
             guess2.setBackgroundColor(Color.GRAY);
             guess3.setBackgroundColor(Color.GRAY);
@@ -233,8 +251,10 @@ public class Exercise extends AppCompatActivity {
             guess4.setEnabled(true);
             timer = (TextView) findViewById(R.id.timer);
             timer.setText("20 SEC"); // just for presentation we will give 15 secs to explain
-            counter = new timerClass(20000, 1000);
-            counter.start();
+            if (counter == null) {
+                counter = new timerClass(20000, 1000);
+                counter.start();
+            }
             ImageView imageView = (ImageView) findViewById(R.id.imageView);
             imageView.setImageResource(pics[index]);
             TextView question = (TextView) findViewById(R.id.question);
@@ -275,12 +295,14 @@ public class Exercise extends AppCompatActivity {
 
         public timerClass(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
+            elapsedTime = 20;
         }
 
         @Override
         public void onTick(long millisUntilFinished) {
             long millis = millisUntilFinished;
             String sec = String.format("%02d", TimeUnit.MILLISECONDS.toSeconds(millis));
+            elapsedTime = (int) TimeUnit.MILLISECONDS.toSeconds(millis);
             timer.setText(sec + " SEC");
             if (sec.equals("12")) cutAnswer();
             if (sec.equals("06")) cutAnswer();
@@ -294,9 +316,24 @@ public class Exercise extends AppCompatActivity {
             guess3.setEnabled(false);
             guess4.setEnabled(false);
             counter.cancel();
-
+            counter = null;
+            delayTimer = new delayTimerClass(2000, 1000);
+            delayTimer.start();
         }
     }
 
+    public class delayTimerClass extends CountDownTimer {
+        public delayTimerClass(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
 
+        @Override
+        public void onTick(long millisUntilFinished) {
+        }
+
+        @Override
+        public void onFinish() {
+            init();
+        }
+    }
 }
