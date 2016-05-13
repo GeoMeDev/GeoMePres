@@ -3,121 +3,227 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#7899de">
+    android:background="#3f57e1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:layout_gravity="center">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:layout_gravity="center">
+            <TextView
+                android:layout_width="50dp"
+                android:layout_centerInParent="true"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/timer"
+                android:background="@drawable/circle"
+                android:layout_alignParentTop="true"
+                android:textColor="@android:color/white"
+                android:textSize="20dp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:layout_gravity="center">
+            <TextView
+                android:layout_width="50dp"
+                android:layout_centerInParent="true"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal|center_vertical"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/lives"
+                android:background="@drawable/circle"
+                android:textColor="@android:color/white"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:textSize="20dp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="0.3"
+            android:layout_gravity="center">
+            <TextView
+                android:layout_width="50dp"
+                android:layout_centerInParent="true"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal|center_vertical"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/score"
+                android:background="@drawable/circle"
+                android:textColor="@android:color/white"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:textSize="20dp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:layout_gravity="center">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:layout_gravity="center">
+        <ImageView
+                android:id="@+id/time"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:src="@drawable/time" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:layout_gravity="center">
+            <ImageView
+                android:id="@+id/heart"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:src="@drawable/heart" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="0.3"
+            android:layout_gravity="center">
+            <ImageView
+                android:id="@+id/cup"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:src="@drawable/cup" />
+        </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.2"
-        android:background="@android:color/holo_red_dark">
-
-        <TextView
-            android:id="@+id/exerciseActivity_timerTV"
-            android:layout_marginStart="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:text="timer"
-            android:textColor="@android:color/white" />
-
-        <TextView
-            android:layout_marginEnd="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:text="Score"
-            android:textColor="@android:color/white" />
-
+        android:layout_weight="0.5" >
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/imageView"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true"
-            android:src="@drawable/circle" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
-        android:background="@android:color/holo_blue_bright">
-
-        <ImageView
-            android:id="@+id/exerciseActivity_centerIV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_margin="30dp" />
+            android:src="@drawable/logo" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.1"
-        android:background="@android:color/holo_red_dark">
-
+        android:background="#3273ff">
         <TextView
-            android:id="@+id/exerciseActivity_question"
-            android:layout_marginStart="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/question"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
             android:text="question"
             android:layout_centerInParent="true"
-            android:textColor="@android:color/holo_purple" />
+            android:textColor="#000000"
+            android:textSize="18dp" />
 
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3"
-        android:background="@android:color/holo_green_dark">
-
+        android:layout_weight="0.25"
+        android:background="#3273ff">
         <LinearLayout
-            android:layout_margin="30dp"
+            android:layout_margin="5dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:background="@android:color/holo_blue_dark"
             android:orientation="vertical">
 
             <Button
                 android:layout_gravity="center"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minWidth="100dp"/>
+                android:layout_weight="1"
+                android:minWidth="100dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:id="@+id/guess1" />
             <Button
                 android:layout_gravity="center"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minWidth="100dp"/>
+                android:layout_weight="1"
+                android:minWidth="100dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:id="@+id/guess3" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_margin="30dp"
+            android:layout_margin="5dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:background="@android:color/holo_orange_dark"
             android:orientation="vertical">
 
             <Button
                 android:layout_gravity="center"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minWidth="100dp"/>
+                android:layout_weight="1"
+                android:minWidth="100dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:id="@+id/guess2" />
             <Button
                 android:layout_gravity="center"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minWidth="100dp"/>
+                android:layout_weight="1"
+                android:minWidth="100dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:id="@+id/guess4" />
 
         </LinearLayout>
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05"
+        android:background="#3273ff">
+        <Button
+            android:id="@+id/hint"
+            android:layout_gravity="center"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/hint" />
+    </RelativeLayout>
 </LinearLayout>

@@ -31,6 +31,10 @@ public class Splash extends FragmentActivity {
 //            }
 //        };
 //        timerThread.start();
+
+
+
+
         new CountDownTimer(3000, 1000) {
 
             public void onTick(long millisUntilFinished) {

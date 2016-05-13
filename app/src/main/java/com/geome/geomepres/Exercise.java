@@ -39,6 +39,8 @@ public class Exercise extends FragmentActivity {
     timerClass counter = null;
     delayTimerClass delayTimer;
 
+    int lives;
+
     AlertDialog.Builder dlgAlert;
 
     int score;
@@ -52,20 +54,16 @@ public class Exercise extends FragmentActivity {
     int[] correctAnswerIndex;
 
     int index;
-
-    PopupWindow hintWindow;
-    LinearLayout hintLayout;
-    TextView hintView;
-    LayoutParams params;
-    LinearLayout mainLayout;
-    Button okayHintButton;
-    boolean hintClick = true;
+    TextView livesCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
 
+        lives = 5;
+        livesCounter = (TextView) findViewById(R.id.lives);
+        livesCounter.setText(Integer.toString(lives));
         score = 0;
         gameScore = (TextView) findViewById(R.id.score);
         gameScore.setText(Integer.toString(score));
@@ -431,15 +429,9 @@ public class Exercise extends FragmentActivity {
         guess4 = (Button) findViewById(R.id.guess4);
         hint = (Button) findViewById(R.id.hint);
 
+
         init();
 
-//        next.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                init();
-//            }
-//        });
 
         dlgAlert  = new AlertDialog.Builder(this);
 
@@ -448,7 +440,7 @@ public class Exercise extends FragmentActivity {
             public void onClick(View v) {
                 counter.cancel();
                 counter = null;
-                dlgAlert.setMessage(explanation[index]);
+                dlgAlert.setMessage(explanation[index-1]);
                 dlgAlert.setTitle("Hint");
                 dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -472,11 +464,14 @@ public class Exercise extends FragmentActivity {
                 else {
                     guess1.setBackgroundColor(Color.RED);
                     paintCorrectButton();
+                    lives--;
+
                 }
                 guess1.setEnabled(false);
                 guess2.setEnabled(false);
                 guess3.setEnabled(false);
                 guess4.setEnabled(false);
+                hint.setEnabled(false);
                 counter.cancel();
                 counter = null;
                 delayTimer = new delayTimerClass(1000, 1000);
@@ -495,11 +490,13 @@ public class Exercise extends FragmentActivity {
                 else {
                     guess2.setBackgroundColor(Color.RED);
                     paintCorrectButton();
+                    lives--;
                 }
                 guess1.setEnabled(false);
                 guess2.setEnabled(false);
                 guess3.setEnabled(false);
                 guess4.setEnabled(false);
+                hint.setEnabled(false);
                 counter.cancel();
                 counter = null;
                 delayTimer = new delayTimerClass(1000, 1000);
@@ -518,11 +515,13 @@ public class Exercise extends FragmentActivity {
                 else {
                     guess3.setBackgroundColor(Color.RED);
                     paintCorrectButton();
+                    lives--;
                 }
                 guess1.setEnabled(false);
                 guess2.setEnabled(false);
                 guess3.setEnabled(false);
                 guess4.setEnabled(false);
+                hint.setEnabled(false);
                 counter.cancel();
                 counter = null;
                 delayTimer = new delayTimerClass(1000, 1000);
@@ -541,11 +540,13 @@ public class Exercise extends FragmentActivity {
                 else {
                     guess4.setBackgroundColor(Color.RED);
                     paintCorrectButton();
+                    lives--;
                 }
                 guess1.setEnabled(false);
                 guess2.setEnabled(false);
                 guess3.setEnabled(false);
                 guess4.setEnabled(false);
+                hint.setEnabled(false);
                 counter.cancel();
                 counter = null;
                 delayTimer = new delayTimerClass(1000, 1000);
@@ -594,34 +595,60 @@ public class Exercise extends FragmentActivity {
     private void init() {
         if (index < pics.length) {
             elapsedTime = 0;
-            guess1.setBackgroundColor(Color.GRAY);
-            guess2.setBackgroundColor(Color.GRAY);
-            guess3.setBackgroundColor(Color.GRAY);
-            guess4.setBackgroundColor(Color.GRAY);
-            guess1.setVisibility(View.VISIBLE);
-            guess2.setVisibility(View.VISIBLE);
-            guess3.setVisibility(View.VISIBLE);
-            guess4.setVisibility(View.VISIBLE);
-            guess1.setEnabled(true);
-            guess2.setEnabled(true);
-            guess3.setEnabled(true);
-            guess4.setEnabled(true);
-            timer = (TextView) findViewById(R.id.timer);
-            timer.setText("20 SEC"); // just for presentation we will give 15 secs to explain
-            if (counter == null) {
-                counter = new timerClass(20000, 1000);
-                counter.start();
+            livesCounter.setText(Integer.toString(lives));
+            if(lives == 0) {
+                dlgAlert.setMessage("Game Over! Your Score Is: " + Integer.toString(score));
+                dlgAlert.setTitle("Game Over");
+                dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        System.exit(0);
+                    }
+                });
+                dlgAlert.setCancelable(false);
+                dlgAlert.create().show();
             }
-            ImageView imageView = (ImageView) findViewById(R.id.imageView);
-            imageView.setImageResource(pics[index]);
-            TextView question = (TextView) findViewById(R.id.question);
-            question.setText(questions[index]);
-            guess1.setText(answers[index][0]);
-            guess2.setText(answers[index][1]);
-            guess3.setText(answers[index][2]);
-            guess4.setText(answers[index][3]);
-            correctAnswer = correctAnswerIndex[index];
-            index++;
+            else {
+                guess1.setBackgroundColor(Color.GRAY);
+                guess2.setBackgroundColor(Color.GRAY);
+                guess3.setBackgroundColor(Color.GRAY);
+                guess4.setBackgroundColor(Color.GRAY);
+                guess1.setVisibility(View.VISIBLE);
+                guess2.setVisibility(View.VISIBLE);
+                guess3.setVisibility(View.VISIBLE);
+                guess4.setVisibility(View.VISIBLE);
+                guess1.setEnabled(true);
+                guess2.setEnabled(true);
+                guess3.setEnabled(true);
+                guess4.setEnabled(true);
+                hint.setEnabled(true);
+                timer = (TextView) findViewById(R.id.timer);
+                timer.setText("20");
+                if (counter == null) {
+                    counter = new timerClass(20000, 1000);
+                    counter.start();
+                }
+                ImageView imageView = (ImageView) findViewById(R.id.imageView);
+                imageView.setImageResource(pics[index]);
+                TextView question = (TextView) findViewById(R.id.question);
+                question.setText(questions[index]);
+                guess1.setText(answers[index][0]);
+                guess2.setText(answers[index][1]);
+                guess3.setText(answers[index][2]);
+                guess4.setText(answers[index][3]);
+                correctAnswer = correctAnswerIndex[index];
+                index++;
+            }
+        }
+        else {
+            dlgAlert.setMessage("Congratulations, You Finished The Game, Your Score Is: " + Integer.toString(score));
+            dlgAlert.setTitle("Congratulations!");
+            dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    System.exit(0);
+                }
+            });
+            dlgAlert.setCancelable(false);
+            dlgAlert.create().show();
         }
     }
 
@@ -660,19 +687,21 @@ public class Exercise extends FragmentActivity {
             long millis = millisUntilFinished;
             String sec = String.format("%02d", TimeUnit.MILLISECONDS.toSeconds(millis));
             elapsedTime = (int) TimeUnit.MILLISECONDS.toSeconds(millis);
-            timer.setText(sec + " SEC");
+            timer.setText(sec);
             if (sec.equals("12")) cutAnswer();
             if (sec.equals("06")) cutAnswer();
         }
 
         @Override
         public void onFinish() {
-            timer.setText("00 SEC");
+            lives--;
+            timer.setText("00");
             paintCorrectButton();
             guess1.setEnabled(false);
             guess2.setEnabled(false);
             guess3.setEnabled(false);
             guess4.setEnabled(false);
+            hint.setEnabled(false);
             counter.cancel();
             counter = null;
             delayTimer = new delayTimerClass(1000, 1000);
